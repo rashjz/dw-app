@@ -1,11 +1,17 @@
 package dw.ms.app;
 
+import dw.ms.app.auth.AppAuthorizer;
+import dw.ms.app.auth.AppBasicAuthenticator;
 import dw.ms.app.core.Person;
+import dw.ms.app.core.User;
 import dw.ms.app.db.PersonDAO;
 import dw.ms.app.resources.PeopleResource;
 import dw.ms.app.resources.PersonResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
@@ -14,6 +20,7 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import java.util.Map;
 
@@ -72,14 +79,16 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 //        environment.healthChecks().register("template", new TemplateHealthCheck(template));
 //        environment.admin().addTask(new EchoTask());
 //        environment.jersey().register(DateRequiredFeature.class);
-//        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
-//                .setAuthenticator(new ExampleAuthenticator())
-//                .setAuthorizer(new ExampleAuthorizer())
-//                .setRealm("SUPER SECRET STUFF")
-//                .buildAuthFilter()));
 
-//        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
-//        environment.jersey().register(RolesAllowedDynamicFeature.class);
+        //****** Dropwizard security - custom classes ***********/
+        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
+                .setAuthenticator(new AppBasicAuthenticator())
+                .setAuthorizer(new AppAuthorizer())
+                .setRealm("BASIC-AUTH-REALM")
+                .buildAuthFilter()));
+
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
 
 
 //        environment.jersey().register(new HelloWorldResource(template));
