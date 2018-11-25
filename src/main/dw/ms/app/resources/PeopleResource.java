@@ -4,6 +4,8 @@ package dw.ms.app.resources;
 import dw.ms.app.core.Person;
 import dw.ms.app.db.PersonDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,6 +17,7 @@ import java.util.List;
 @Path("/people")
 @Produces(MediaType.APPLICATION_JSON)
 public class PeopleResource {
+    Logger log = LoggerFactory.getLogger(PeopleResource.class);
 
     private final PersonDAO peopleDAO;
 
@@ -25,6 +28,7 @@ public class PeopleResource {
     @POST
     @UnitOfWork
     public Person createPerson(Person person) {
+        log.debug("create person called ::: ",person.toString());
         return peopleDAO.create(person);
     }
 

@@ -2,6 +2,7 @@ package dw.ms.app;
 
 import dw.ms.app.core.Person;
 import dw.ms.app.db.PersonDAO;
+import dw.ms.app.resources.PeopleResource;
 import dw.ms.app.resources.PersonResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -84,7 +85,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 //        environment.jersey().register(new HelloWorldResource(template));
 //        environment.jersey().register(new ViewResource());
 //        environment.jersey().register(new ProtectedResource());
-//        environment.jersey().register(new PeopleResource(dao));
+        environment.jersey().register(new PeopleResource(dao));
         environment.jersey().register(new PersonResource(dao));
 //        environment.jersey().register(new FilteredResource());
     }

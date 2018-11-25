@@ -1,7 +1,7 @@
 package dw.ms.app;
 
  import com.fasterxml.jackson.annotation.JsonProperty;
-import dw.ms.app.core.Template;
+//import dw.ms.app.core.Template;
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -45,9 +45,9 @@ public class HelloWorldConfiguration extends Configuration {
         this.defaultName = defaultName;
     }
 
-    public Template buildTemplate() {
-        return new Template(template, defaultName);
-    }
+//    public Template buildTemplate() {
+//        return new Template(template, defaultName);
+//    }
 
     @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory() {
