@@ -3,8 +3,10 @@ package dw.ms.app;
 import dw.ms.app.auth.AppAuthorizer;
 import dw.ms.app.auth.AppBasicAuthenticator;
 import dw.ms.app.core.Person;
+import dw.ms.app.core.Template;
 import dw.ms.app.core.User;
 import dw.ms.app.db.PersonDAO;
+import dw.ms.app.health.TemplateHealthCheck;
 import dw.ms.app.resources.PeopleResource;
 import dw.ms.app.resources.PersonResource;
 import io.dropwizard.Application;
@@ -25,11 +27,6 @@ import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import java.util.Map;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
-
-    public static void main(String[] args) throws Exception {
-        new HelloWorldApplication().run(args);
-    }
-
     private final HibernateBundle<HelloWorldConfiguration> hibernateBundle =
             new HibernateBundle<HelloWorldConfiguration>(Person.class) {
                 @Override
@@ -37,6 +34,12 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                     return configuration.getDataSourceFactory();
                 }
             };
+
+
+    public static void main(String[] args) throws Exception {
+        new HelloWorldApplication().run(args);
+    }
+
 
     @Override
     public String getName() {
@@ -74,9 +77,10 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     @Override
     public void run(HelloWorldConfiguration configuration, Environment environment) {
         final PersonDAO dao = new PersonDAO(hibernateBundle.getSessionFactory());
-//        final Template template = configuration.buildTemplate();
+        final Template template = configuration.buildTemplate();
+        //****** Dropwizard admin health check ***********/
+        environment.healthChecks().register("template", new TemplateHealthCheck(template));
 
-//        environment.healthChecks().register("template", new TemplateHealthCheck(template));
 //        environment.admin().addTask(new EchoTask());
 //        environment.jersey().register(DateRequiredFeature.class);
 
