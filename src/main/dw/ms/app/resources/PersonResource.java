@@ -3,6 +3,7 @@ package dw.ms.app.resources;
 
 import dw.ms.app.core.Person;
 import dw.ms.app.db.PersonDAO;
+import dw.ms.app.view.PersonView;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
@@ -25,13 +26,13 @@ public class PersonResource {
         return findSafely(personId.get());
     }
 
-//    @GET
-//    @Path("/view_freemarker")
-//    @UnitOfWork
-//    @Produces(MediaType.TEXT_HTML)
-//    public PersonView getPersonViewFreemarker(@PathParam("personId") LongParam personId) {
-//        return new PersonView(PersonView.Template.FREEMARKER, findSafely(personId.get()));
-//    }
+    @GET
+    @Path("/view_person")
+    @UnitOfWork
+    @Produces(MediaType.TEXT_HTML)
+    public PersonView getPersonViewFreemarker(@PathParam("personId") LongParam personId) {
+        return new PersonView(PersonView.Template.FREEMARKER, findSafely(personId.get()));
+    }
 //
 //    @GET
 //    @Path("/view_mustache")
