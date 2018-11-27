@@ -27,20 +27,12 @@ public class PersonResource {
     }
 
     @GET
-    @Path("/view_person")
+    @Path("/view_freemarker")
     @UnitOfWork
     @Produces(MediaType.TEXT_HTML)
     public PersonView getPersonViewFreemarker(@PathParam("personId") LongParam personId) {
         return new PersonView(PersonView.Template.FREEMARKER, findSafely(personId.get()));
     }
-//
-//    @GET
-//    @Path("/view_mustache")
-//    @UnitOfWork
-//    @Produces(MediaType.TEXT_HTML)
-//    public PersonView getPersonViewMustache(@PathParam("personId") LongParam personId) {
-//        return new PersonView(PersonView.Template.MUSTACHE, findSafely(personId.get()));
-//    }
 
     private Person findSafely(long personId) {
         return peopleDAO.findById(personId).orElseThrow(() -> new NotFoundException("No such user."));
