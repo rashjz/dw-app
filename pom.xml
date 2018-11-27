@@ -121,7 +121,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>dw.ms.app.HelloWorldApplication</mainClass>
+                                    <mainClass>dw.ms.app.AppRunner</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

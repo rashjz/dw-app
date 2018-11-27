@@ -6,8 +6,8 @@
 
 
 ### Authentication 
-* Request URL : localhost:8080/people 
-* Request Type  POST 
+* Request URL  : localhost:8080/people 
+* Request Type :  POST 
 
 #### Request Header
 
@@ -21,4 +21,8 @@
 ```json
 {"fullName": "Rashad Javadov"  ,"jobTitle":"Engineer"}  
 ```
+
+#### Health Check
+* Request URL  : http://localhost:8081/healthcheck
+* Request Type : GET 
 
