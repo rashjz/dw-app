@@ -32,7 +32,7 @@ public class PeopleResource {
     @POST
     @UnitOfWork
     public Person createPerson(Person person,@Auth User user) {
-        log.info("create person called ::: ",person.toString());
+        log.info("createPerson method called with person : {} and user : {}",person.toString(),user.toString());
         return peopleDAO.create(person);
     }
     @GET
