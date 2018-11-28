@@ -30,4 +30,13 @@ public class User implements Principal {
     public Set<String> getRoles() {
         return roles;
     }
+    
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
+    
 }
